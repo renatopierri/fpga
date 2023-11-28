@@ -41,6 +41,15 @@ Thumbs.db
 **/db
 **/incremental_db
 **/work
+*.rpt
+*.done
+*.smsg
+*.summary
+*.jdi
+*.pin
+*.sld
+*.qdf
+*.wlf
 #allow
 !*.qpf
 !*.qsf
