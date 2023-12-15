@@ -1,9 +1,10 @@
 module seven_segment_cntrl (
   input [2:0] inp,            
   output reg seg_a, seg_b, seg_c, seg_d,  
-  output reg seg_e, seg_f, seg_g      
+  output reg seg_e, seg_f, seg_g,
+  output catodo_comum_dsp  
 );
-  
+  assign catodo_comum_dsp = 0;
   always@ (inp) begin
     
     case(inp)
