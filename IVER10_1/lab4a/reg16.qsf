@@ -64,4 +64,39 @@ set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
 set_global_assignment -name VERILOG_FILE reg16.v
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_location_assignment PIN_N13 -to clk
+set_location_assignment PIN_M12 -to clk_ena
+set_location_assignment PIN_N15 -to datain[3]
+set_location_assignment PIN_N16 -to datain[4]
+set_location_assignment PIN_P16 -to datain[2]
+set_location_assignment PIN_P15 -to datain[1]
+set_location_assignment PIN_R16 -to datain[0]
+set_location_assignment PIN_C3 -to reg_out[15]
+set_location_assignment PIN_A2 -to reg_out[14]
+set_location_assignment PIN_B3 -to reg_out[13]
+set_location_assignment PIN_A3 -to reg_out[12]
+set_location_assignment PIN_B4 -to reg_out[11]
+set_location_assignment PIN_A4 -to reg_out[10]
+set_location_assignment PIN_B5 -to reg_out[9]
+set_location_assignment PIN_A5 -to reg_out[8]
+set_location_assignment PIN_L14 -to reg_out[7]
+set_location_assignment PIN_L13 -to reg_out[6]
+set_location_assignment PIN_G16 -to reg_out[5]
+set_location_assignment PIN_G15 -to reg_out[4]
+set_location_assignment PIN_F16 -to reg_out[3]
+set_location_assignment PIN_F15 -to reg_out[2]
+set_location_assignment PIN_D16 -to reg_out[1]
+set_location_assignment PIN_D15 -to reg_out[0]
+set_location_assignment PIN_N14 -to sclr_n
+set_instance_assignment -name ENABLE_STRICT_PRESERVATION OFF -to datain[15] -section_id reg16
+set_instance_assignment -name ENABLE_STRICT_PRESERVATION OFF -to datain[14] -section_id reg16
+set_instance_assignment -name ENABLE_STRICT_PRESERVATION OFF -to datain[13] -section_id reg16
+set_instance_assignment -name ENABLE_STRICT_PRESERVATION OFF -to datain[12] -section_id reg16
+set_instance_assignment -name ENABLE_STRICT_PRESERVATION OFF -to datain[11] -section_id reg16
+set_instance_assignment -name ENABLE_STRICT_PRESERVATION OFF -to datain[9] -section_id reg16
+set_instance_assignment -name ENABLE_STRICT_PRESERVATION OFF -to datain[10] -section_id reg16
+set_instance_assignment -name ENABLE_STRICT_PRESERVATION OFF -to datain[8] -section_id reg16
+set_instance_assignment -name ENABLE_STRICT_PRESERVATION OFF -to datain[7] -section_id reg16
+set_instance_assignment -name ENABLE_STRICT_PRESERVATION OFF -to datain[6] -section_id reg16
+set_instance_assignment -name ENABLE_STRICT_PRESERVATION OFF -to datain[5] -section_id reg16
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
