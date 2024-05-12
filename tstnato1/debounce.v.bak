@@ -1,0 +1,6 @@
+module debounce(
+ENT, U1_a, U1_b, U1_c, U1_d, U1_e, U1_f,SAI
+);
+
+input ENT, U1_a, U1_b, U1_d, U1_e;
+output U1_c, U1_f, SAI;

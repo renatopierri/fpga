@@ -1,0 +1,228 @@
+// Copyright (C) 2023  Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions 
+// and other software and tools, and any partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Intel Program License 
+// Subscription Agreement, the Intel Quartus Prime License Agreement,
+// the Intel FPGA IP License Agreement, or other applicable license
+// agreement, including, without limitation, that your use is for
+// the sole purpose of programming logic devices manufactured by
+// Intel and sold by Intel or its authorized distributors.  Please
+// refer to the applicable agreement for further details, at
+// https://fpgasoftware.intel.com/eula.
+
+// VENDOR "Altera"
+// PROGRAM "Quartus Prime"
+// VERSION "Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition"
+
+// DATE "12/17/2023 11:43:00"
+
+// 
+// Device: Altera EP4CE6F17C8 Package FBGA256
+// 
+
+// 
+// This Verilog file should be used for Questa Intel FPGA (Verilog) only
+// 
+
+`timescale 1 ps/ 1 ps
+
+module junta (
+	entra,
+	clear,
+	cout);
+input 	entra;
+input 	clear;
+output 	[1:0] cout;
+
+// Design Ports Information
+// cout[0]	=>  Location: PIN_D16,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// cout[1]	=>  Location: PIN_D15,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// entra	=>  Location: PIN_N13,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// clear	=>  Location: PIN_R16,	 I/O Standard: 2.5 V,	 Current Strength: Default
+
+
+wire gnd;
+wire vcc;
+wire unknown;
+
+assign gnd = 1'b0;
+assign vcc = 1'b1;
+assign unknown = 1'bx;
+
+tri1 devclrn;
+tri1 devpor;
+tri1 devoe;
+wire \cout[0]~output_o ;
+wire \cout[1]~output_o ;
+wire \entra~input_o ;
+wire \u2|count_out[0]~1_combout ;
+wire \clear~input_o ;
+wire \u2|count_out[1]~0_combout ;
+wire [1:0] \u2|count_out ;
+
+
+hard_block auto_generated_inst(
+	.devpor(devpor),
+	.devclrn(devclrn),
+	.devoe(devoe));
+
+// Location: IOOBUF_X34_Y19_N9
+cycloneive_io_obuf \cout[0]~output (
+	.i(\u2|count_out [0]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\cout[0]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \cout[0]~output .bus_hold = "false";
+defparam \cout[0]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y19_N2
+cycloneive_io_obuf \cout[1]~output (
+	.i(\u2|count_out [1]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\cout[1]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \cout[1]~output .bus_hold = "false";
+defparam \cout[1]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOIBUF_X34_Y2_N22
+cycloneive_io_ibuf \entra~input (
+	.i(entra),
+	.ibar(gnd),
+	.o(\entra~input_o ));
+// synopsys translate_off
+defparam \entra~input .bus_hold = "false";
+defparam \entra~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: LCCOMB_X33_Y2_N0
+cycloneive_lcell_comb \u2|count_out[0]~1 (
+// Equation(s):
+// \u2|count_out[0]~1_combout  = !\u2|count_out [0]
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(\u2|count_out [0]),
+	.datad(gnd),
+	.cin(gnd),
+	.combout(\u2|count_out[0]~1_combout ),
+	.cout());
+// synopsys translate_off
+defparam \u2|count_out[0]~1 .lut_mask = 16'h0F0F;
+defparam \u2|count_out[0]~1 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: IOIBUF_X34_Y5_N15
+cycloneive_io_ibuf \clear~input (
+	.i(clear),
+	.ibar(gnd),
+	.o(\clear~input_o ));
+// synopsys translate_off
+defparam \clear~input .bus_hold = "false";
+defparam \clear~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: FF_X33_Y2_N1
+dffeas \u2|count_out[0] (
+	.clk(!\entra~input_o ),
+	.d(\u2|count_out[0]~1_combout ),
+	.asdata(vcc),
+	.clrn(\clear~input_o ),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\u2|count_out [0]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \u2|count_out[0] .is_wysiwyg = "true";
+defparam \u2|count_out[0] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X33_Y2_N10
+cycloneive_lcell_comb \u2|count_out[1]~0 (
+// Equation(s):
+// \u2|count_out[1]~0_combout  = \u2|count_out [1] $ (\u2|count_out [0])
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(\u2|count_out [1]),
+	.datad(\u2|count_out [0]),
+	.cin(gnd),
+	.combout(\u2|count_out[1]~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \u2|count_out[1]~0 .lut_mask = 16'h0FF0;
+defparam \u2|count_out[1]~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X33_Y2_N11
+dffeas \u2|count_out[1] (
+	.clk(!\entra~input_o ),
+	.d(\u2|count_out[1]~0_combout ),
+	.asdata(vcc),
+	.clrn(\clear~input_o ),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\u2|count_out [1]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \u2|count_out[1] .is_wysiwyg = "true";
+defparam \u2|count_out[1] .power_up = "low";
+// synopsys translate_on
+
+assign cout[0] = \cout[0]~output_o ;
+
+assign cout[1] = \cout[1]~output_o ;
+
+endmodule
+
+module hard_block (
+
+	devpor,
+	devclrn,
+	devoe);
+
+// Design Ports Information
+// ~ALTERA_ASDO_DATA1~	=>  Location: PIN_C1,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_FLASH_nCE_nCSO~	=>  Location: PIN_D2,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_DCLK~	=>  Location: PIN_H1,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_DATA0~	=>  Location: PIN_H2,	 I/O Standard: 2.5 V,	 Current Strength: Default
+
+input 	devpor;
+input 	devclrn;
+input 	devoe;
+
+wire gnd;
+wire vcc;
+wire unknown;
+
+assign gnd = 1'b0;
+assign vcc = 1'b1;
+assign unknown = 1'bx;
+
+wire \~ALTERA_ASDO_DATA1~~padout ;
+wire \~ALTERA_FLASH_nCE_nCSO~~padout ;
+wire \~ALTERA_DATA0~~padout ;
+wire \~ALTERA_ASDO_DATA1~~ibuf_o ;
+wire \~ALTERA_FLASH_nCE_nCSO~~ibuf_o ;
+wire \~ALTERA_DATA0~~ibuf_o ;
+
+
+endmodule
