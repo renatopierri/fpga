@@ -1,0 +1,120 @@
+C:\Users\renat\OneDrive\Documentos\GitHub\fpga\contador>tree /f
+Listagem de caminhos de pasta
+O número de série do volume é 000000B7 AAC0:A2EC
+C:.
+│   contador.qpf
+│   contador.qsf
+│   contador_bcd.sv
+│   contador_bcd.sv.bak
+│   contador_top.sv
+│   contador_top.sv.bak
+│   decodificador_7segmentos.sv
+│   gerador_enable.sv
+│   gerador_enable.sv.bak
+│   multiplexador_display.sv
+│   tb_contador_bcd.sv
+│   tb_contador_top.sv
+│   tb_gerador_enable.sv
+│
+├───db
+│       .cmp.kpt
+│       contador.(0).cnf.cdb
+│       contador.(0).cnf.hdb
+│       contador.asm.qmsg
+│       contador.asm.rdb
+│       contador.asm_labs.ddb
+│       contador.cbx.xml
+│       contador.cmp.bpm
+│       contador.cmp.cdb
+│       contador.cmp.hdb
+│       contador.cmp.idb
+│       contador.cmp.logdb
+│       contador.cmp.rdb
+│       contador.cmp_merge.kpt
+│       contador.cycloneive_io_sim_cache.45um_ff_1200mv_0c_fast.hsd
+│       contador.cycloneive_io_sim_cache.45um_tt_1200mv_0c_slow.hsd
+│       contador.cycloneive_io_sim_cache.45um_tt_1200mv_85c_slow.hsd
+│       contador.db_info
+│       contador.eda.qmsg
+│       contador.fit.qmsg
+│       contador.hier_info
+│       contador.hif
+│       contador.lpc.html
+│       contador.lpc.rdb
+│       contador.lpc.txt
+│       contador.map.ammdb
+│       contador.map.bpm
+│       contador.map.cdb
+│       contador.map.hdb
+│       contador.map.kpt
+│       contador.map.logdb
+│       contador.map.qmsg
+│       contador.map.rdb
+│       contador.map_bb.cdb
+│       contador.map_bb.hdb
+│       contador.map_bb.logdb
+│       contador.pre_map.hdb
+│       contador.quiproj.3740.rdr.flock
+│       contador.root_partition.map.reg_db.cdb
+│       contador.routing.rdb
+│       contador.rtlv.hdb
+│       contador.rtlv_sg.cdb
+│       contador.rtlv_sg_swap.cdb
+│       contador.sld_design_entry.sci
+│       contador.sld_design_entry_dsc.sci
+│       contador.smart_action.txt
+│       contador.sta.qmsg
+│       contador.sta.rdb
+│       contador.sta_cmp.6_slow_1200mv_85c.tdb
+│       contador.tiscmp.fast_1200mv_0c.ddb
+│       contador.tiscmp.slow_1200mv_0c.ddb
+│       contador.tiscmp.slow_1200mv_85c.ddb
+│       contador.tis_db_list.ddb
+│       contador.tmw_info
+│       contador.vpr.ammdb
+│       contador_partition_pins.json
+│       prev_cmp_contador.qmsg
+│
+├───incremental_db
+│   │   README
+│   │
+│   └───compiled_partitions
+│           contador.db_info
+│           contador.root_partition.cmp.ammdb
+│           contador.root_partition.cmp.cdb
+│           contador.root_partition.cmp.dfp
+│           contador.root_partition.cmp.hdb
+│           contador.root_partition.cmp.logdb
+│           contador.root_partition.cmp.rcfdb
+│           contador.root_partition.map.cdb
+│           contador.root_partition.map.dpi
+│           contador.root_partition.map.hbdb.cdb
+│           contador.root_partition.map.hbdb.hb_info
+│           contador.root_partition.map.hbdb.hdb
+│           contador.root_partition.map.hbdb.sig
+│           contador.root_partition.map.hdb
+│           contador.root_partition.map.kpt
+│           contador.rrp.hdb
+│
+├───output_files
+│       contador.asm.rpt
+│       contador.done
+│       contador.eda.rpt
+│       contador.fit.rpt
+│       contador.fit.smsg
+│       contador.fit.summary
+│       contador.flow.rpt
+│       contador.jdi
+│       contador.jditmp
+│       contador.map.rpt
+│       contador.map.summary
+│       contador.pin
+│       contador.sld
+│       contador.sof
+│       contador.sta.rpt
+│       contador.sta.summary
+│
+└───simulation
+    └───questa
+            contador.sft
+            contador.vo
