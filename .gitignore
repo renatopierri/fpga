@@ -1,16 +1,91 @@
-# Compiled source #
-###################
+# =============================================================================
+# .gitignore para repositório FPGA / Quartus
+# Raiz do repositório: C:/Users/renat/OneDrive/Documentos/GitHub/fpga
+# Projeto Quartus:     C:/Users/renat/OneDrive/Documentos/GitHub/fpga/contador
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Sistema operacional / editor
+# -----------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Arquivos temporários / backup
+*.bak
+*.tmp
+*.temp
+*.orig
+*.swp
+*.swo
+*~
+backup/
+
+# -----------------------------------------------------------------------------
+# Logs
+# -----------------------------------------------------------------------------
+*.log
+*.jou
+*.str
+
+# -----------------------------------------------------------------------------
+# Quartus / Intel FPGA: bancos, saídas e resultados gerados
+# Estas pastas podem aparecer dentro de contador/ ou de outros projetos futuros.
+# -----------------------------------------------------------------------------
+db/
+incremental_db/
+output_files/
+greybox_tmp/
+hc_output/
+qdb/
+
+# -----------------------------------------------------------------------------
+# Simulação: Questa / ModelSim
+# -----------------------------------------------------------------------------
+work/
+transcript
+vsim.wlf
+*.wlf
+**/simulation/questa/
+**/simulation/modelsim/
+
+# -----------------------------------------------------------------------------
+# Relatórios e arquivos intermediários gerados pelo Quartus
+# -----------------------------------------------------------------------------
+*.rpt
+*.summary
+*.smsg
+*.done
+*.jdi
+*.pin
+*.sld
+*.qdf
+*.qws
+*.qpf.bak
+*.qsf.bak
+*.cmp
+*.eqn
+*.fit.*
+*.map.*
+*.sta.*
+*.asm.*
+*.tan.*
+*.flow.rpt
+
+# -----------------------------------------------------------------------------
+# Pacotes / binários genéricos que não devem ir para o Git
+# -----------------------------------------------------------------------------
 *.com
 *.class
 *.dll
 *.exe
 *.o
 *.so
-
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
 *.7z
 *.dmg
 *.gz
@@ -20,38 +95,24 @@
 *.tar
 *.zip
 
-# Logs and databases #
-######################
-*.log
-*.sql
-*.sqlite
-
-# OS generated files #
-######################
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-#      Verilog      #
-#####################
-#ignore
-**/db
-**/incremental_db
-**/work
-*.rpt
-*.done
-*.smsg
-*.summary
-*.jdi
-*.pin
-*.sld
-*.qdf
-*.wlf
-#allow
+# -----------------------------------------------------------------------------
+# Arquivos que DEVEM poder ser versionados
+# Mesmo que alguma regra acima seja ampliada no futuro, estes ficam liberados.
+# -----------------------------------------------------------------------------
+!*.v
+!*.sv
+!*.vh
+!*.svh
+!*.vhd
+!*.vhdl
+!*.bdf
+!*.bsf
 !*.qpf
 !*.qsf
+!*.sdc
 !*.do
-!*.v
+!*.tcl
+!*.mif
+!*.hex
+!*.vwf
+!README*
