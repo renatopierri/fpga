@@ -14,33 +14,26 @@ module tb_gerador_enable;
     /*
      * Valores reduzidos usados somente na simulação.
      *
-     * A lógica do módulo será a mesma da versão real, mas:
+     * Na placa real:
+     * enable_1hz   usaria 50_000_000 ciclos;
+     * enable_100hz usaria 500_000 ciclos.
      *
-     * enable_1hz   deverá ocorrer a cada 10 ciclos;
-     * enable_100hz deverá ocorrer a cada 4 ciclos.
+     * No teste, usamos números pequenos para a simulação
+     * rodar rápido.
      */
     localparam int unsigned TB_CICLOS_1HZ   = 10;
     localparam int unsigned TB_CICLOS_100HZ = 4;
 
-    /*
-     * Sinais de estímulo enviados ao DUT.
-     */
     logic clk;
     logic reset;
 
-    /*
-     * Sinais observados na saída do DUT.
-     */
     logic enable_1hz;
     logic enable_100hz;
 
     /*
-     * Instância do módulo que será testado.
+     * Instância do módulo testado.
      *
      * DUT = Device Under Test.
-     *
-     * Os valores padrão do gerador_enable são substituídos
-     * pelos valores reduzidos definidos neste testbench.
      */
     gerador_enable #(
         .CICLOS_1HZ   (TB_CICLOS_1HZ),
@@ -53,7 +46,7 @@ module tb_gerador_enable;
     );
 
     /*
-     * Geração contínua do clock de 50 MHz.
+     * Geração contínua do clock.
      */
     initial begin
         clk = 1'b0;
@@ -65,33 +58,96 @@ module tb_gerador_enable;
     end
 
     /*
-     * Sequência inicial de reset.
+     * Reset interno ativo em nível alto.
      *
-     * O reset permanece ativo durante três bordas de subida.
-     * A desativação ocorre na borda de descida seguinte para
-     * evitar disputa temporal com a lógica síncrona do DUT.
+     * reset = 1 → circuito resetado
+     * reset = 0 → circuito funcionando
+     */
+    task automatic aplica_reset;
+        begin
+            reset = 1'b1;
+
+            repeat (3)
+                @(posedge clk);
+
+            @(negedge clk);
+            reset = 1'b0;
+
+            $display("INFO: reset liberado em %0t.", $time);
+        end
+    endtask
+
+    /*
+     * Primeiro teste funcional:
+     *
+     * Depois do reset:
+     *
+     * - enable_1hz deve ficar em 0 nos ciclos anteriores ao pulso;
+     * - no ciclo TB_CICLOS_1HZ, enable_1hz deve ficar em 1;
+     * - no ciclo seguinte, enable_1hz deve voltar para 0.
+     *
+     * Como o DUT ainda não implementa essa lógica, o teste
+     * deve falhar. Essa falha é o RED esperado.
+     */
+    task automatic testa_enable_1hz_um_ciclo;
+        begin
+            $display("INFO: iniciando teste RED de enable_1hz.");
+
+            /*
+             * Verifica os ciclos antes do pulso esperado.
+             */
+            for (int ciclo = 1; ciclo < TB_CICLOS_1HZ; ciclo++) begin
+                @(posedge clk);
+                #1step;
+
+                assert (enable_1hz === 1'b0)
+                else
+                    $fatal(1,
+                           "ERRO: ciclo %0d: enable_1hz deveria estar 0 antes do pulso esperado. Valor lido: %b",
+                           ciclo,
+                           enable_1hz);
+            end
+
+            /*
+             * Verifica o ciclo em que o pulso deve aparecer.
+             */
+            @(posedge clk);
+            #1step;
+
+            assert (enable_1hz === 1'b1)
+            else
+                $fatal(1,
+                       "RED esperado: ciclo %0d: enable_1hz deveria estar 1 por um ciclo, mas foi lido %b.",
+                       TB_CICLOS_1HZ,
+                       enable_1hz);
+
+            /*
+             * Verifica se o pulso durou somente um ciclo.
+             */
+            @(posedge clk);
+            #1step;
+
+            assert (enable_1hz === 1'b0)
+            else
+                $fatal(1,
+                       "ERRO: enable_1hz permaneceu ativo por mais de um ciclo. Valor lido: %b",
+                       enable_1hz);
+
+            $display("PASS: enable_1hz apareceu no ciclo esperado e durou exatamente um ciclo.");
+        end
+    endtask
+
+    /*
+     * Sequência principal da simulação.
      */
     initial begin
         reset = 1'b1;
 
-        repeat (3)
-            @(posedge clk);
+        aplica_reset();
 
-        @(negedge clk);
-        reset = 1'b0;
-    end
+        testa_enable_1hz_um_ciclo();
 
-    /*
-     * Controle provisório da simulação.
-     *
-     * Ainda não há testes automáticos neste arquivo.
-     * O primeiro teste TDD será acrescentado na próxima etapa.
-     */
-    initial begin
-        repeat (50)
-            @(posedge clk);
-
-        $display("Fim temporario da simulacao.");
+        $display("Fim da simulacao: teste enable_1hz concluido.");
         $finish;
     end
 
