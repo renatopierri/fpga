@@ -137,19 +137,61 @@ module tb_gerador_enable;
             $display("PASS: enable_1hz apareceu no ciclo esperado e durou exatamente um ciclo.");
         end
     endtask
+	task automatic testa_enable_100hz_um_ciclo;
+		begin
+			$display("INFO: mensagem gerada pelo testbench tb/tb_gerador_enable.sv.");
+			$display("INFO: iniciando verificacao de enable_100hz utilizada no novo ciclo RED, YELLOW e GREEN.");
+
+			for (int ciclo = 1; ciclo < TB_CICLOS_100HZ; ciclo++) begin
+				@(posedge clk);
+				#1step;
+
+				assert (enable_100hz === 1'b0)
+				else
+					$fatal(1,
+						   "ERRO: ciclo %0d: enable_100hz deveria estar 0 antes do pulso esperado. Valor lido: %b",
+						   ciclo,
+						   enable_100hz);
+			end
+
+			@(posedge clk);
+			#1step;
+
+			assert (enable_100hz === 1'b1)
+			else
+				$fatal(1,
+					   "RED esperado: ciclo %0d: enable_100hz deveria estar 1 por um ciclo, mas foi lido %b.",
+					   TB_CICLOS_100HZ,
+					   enable_100hz);
+
+			@(posedge clk);
+			#1step;
+
+			assert (enable_100hz === 1'b0)
+			else
+				$fatal(1,
+					   "ERRO: enable_100hz permaneceu ativo por mais de um ciclo. Valor lido: %b",
+					   enable_100hz);
+
+			$display("PASS: enable_100hz apareceu no ciclo esperado e durou exatamente um ciclo.");
+		end
+	endtask
 
     /*
      * Sequência principal da simulação.
      */
-    initial begin
-        reset = 1'b1;
+	initial begin
+		reset = 1'b1;
 
-        aplica_reset();
+		aplica_reset();
+		testa_enable_1hz_um_ciclo();
 
-        testa_enable_1hz_um_ciclo();
+		aplica_reset();
+		testa_enable_100hz_um_ciclo();
 
-        $display("Fim da simulacao: teste enable_1hz concluido.");
-        $finish;
-    end
+		$display("Fim da simulacao: testes enable_1hz e enable_100hz concluidos.");
+		$finish;
+	end
+
 
 endmodule
