@@ -10,45 +10,53 @@ module gerador_enable #(
 );
 
     /*
-     * Versao YELLOW.
+     * Versao GREEN refatorada.
      *
-     * Esta implementacao passa o primeiro teste do enable_1hz,
-     * mas ainda esta propositalmente feia e incompleta.
+     * Esta versao mantem o comportamento validado pelo primeiro teste:
      *
-     * Pontos ruins de proposito:
+     * - reset interno ativo em nivel alto;
+     * - enable_1hz gerado no intervalo parametrizado;
+     * - enable_1hz ativo por exatamente um ciclo de clock.
      *
-     * - nome de variavel ruim;
-     * - indentacao pouco caprichada;
-     * - enable_100hz ainda nao implementado;
-     * - codigo escrito apenas para vencer o primeiro teste.
+     * O enable_100hz permanece em zero porque ainda nao existe
+     * teste funcional para ele. Ele sera implementado em um novo
+     * ciclo RED, YELLOW, GREEN.
      *
-     * O objetivo e criar uma etapa clara para refatoracao.
+     * Padroes preservados e explicitados:
+     *
+     * - Clock Enable Pattern:
+     *   gera pulso de enable, nao um novo clock.
+     *
+     * - One-cycle Pulse Pattern:
+     *   a saida volta para zero por padrao a cada ciclo.
+     *
+     * - Parameterized Counter Pattern:
+     *   o periodo do pulso e definido por parametro.
      */
 
-localparam int unsigned tamanho_da_coisa_1hz =
-    (CICLOS_1HZ <= 1) ? 1 : $clog2(CICLOS_1HZ);
+    localparam int unsigned LARGURA_CONTADOR_1HZ =
+        (CICLOS_1HZ <= 1) ? 1 : $clog2(CICLOS_1HZ);
 
-logic [tamanho_da_coisa_1hz-1:0] treco_que_conta_1hz;
+    logic [LARGURA_CONTADOR_1HZ-1:0] contador_1hz;
 
-always_ff @(posedge clk) begin
-if (reset) begin
-    treco_que_conta_1hz <= '0;
-        enable_1hz <= 1'b0;
-    enable_100hz <= 1'b0;
-end
-else begin
-        enable_1hz <= 1'b0;
-enable_100hz <= 1'b0;
+    always_ff @(posedge clk) begin
+        if (reset) begin
+            contador_1hz <= '0;
+            enable_1hz   <= 1'b0;
+            enable_100hz <= 1'b0;
+        end
+        else begin
+            enable_1hz   <= 1'b0;
+            enable_100hz <= 1'b0;
 
-    if (treco_que_conta_1hz == CICLOS_1HZ - 1) begin
-        treco_que_conta_1hz <= '0;
-            enable_1hz <= 1'b1;
+            if (contador_1hz == CICLOS_1HZ - 1) begin
+                contador_1hz <= '0;
+                enable_1hz   <= 1'b1;
+            end
+            else begin
+                contador_1hz <= contador_1hz + 1'b1;
+            end
+        end
     end
-    else begin
-            treco_que_conta_1hz <= treco_que_conta_1hz + 1'b1;
-    end
-end
-end
 
 endmodule
-

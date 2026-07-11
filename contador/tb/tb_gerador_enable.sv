@@ -91,7 +91,8 @@ module tb_gerador_enable;
      */
     task automatic testa_enable_1hz_um_ciclo;
         begin
-            $display("INFO: iniciando teste RED de enable_1hz.");
+            $display("INFO: mensagem gerada pelo testbench tb/tb_gerador_enable.sv.");
+			$display("INFO: iniciando verificacao de enable_1hz utilizada nas etapas RED, YELLOW e GREEN.");
 
             /*
              * Verifica os ciclos antes do pulso esperado.
