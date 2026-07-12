@@ -10,11 +10,9 @@ module gerador_enable #(
 );
 
     /*
-     * Primeira extracao reutilizavel.
-     *
-     * Neste momento, somente enable_1hz e implementado.
-     * O enable_100hz permanece em zero porque ainda sera
-     * especificado por um novo teste RED.
+     * Duas instancias do mesmo gerador parametrizado.
+     * O modulo nao cria clocks internos: gera enables
+     * sincronizados ao clock principal.
      */
 
     gerador_pulso_periodico #(
@@ -25,6 +23,13 @@ module gerador_enable #(
         .enable (enable_1hz)
     );
 
-    assign enable_100hz = 1'b0;
+    gerador_pulso_periodico #(
+        .CICLOS(CICLOS_100HZ)
+    ) instancia_enable_100hz (
+        .clk    (clk),
+        .reset  (reset),
+        .enable (enable_100hz)
+    );
 
 endmodule
+
