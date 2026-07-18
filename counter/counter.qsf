@@ -55,8 +55,6 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_symbol
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/divider.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/counter_top.sv
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name ENABLE_OCT_DONE OFF
@@ -71,15 +69,19 @@ set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -
 set_location_assignment PIN_E1 -to clk_50mhz
 set_location_assignment PIN_B16 -to enable_clock_001_Hz
 set_location_assignment PIN_A15 -to enable_clock_100_Hz
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/bcd_counter.sv
-set_location_assignment PIN_A5 -to b_0
-set_location_assignment PIN_B5 -to b_1
-set_location_assignment PIN_A4 -to b_2
-set_location_assignment PIN_B4 -to b_3
-set_location_assignment PIN_A3 -to b_4
-set_location_assignment PIN_B3 -to b_5
-set_location_assignment PIN_A2 -to b_6
-set_location_assignment PIN_C3 -to b_7
+set_location_assignment PIN_C14 -to dig1
+set_location_assignment PIN_D14 -to dig2
+set_location_assignment PIN_G11 -to dig3
+set_location_assignment PIN_F11 -to dig4
+set_location_assignment PIN_C11 -to dig5
+set_location_assignment PIN_D12 -to dig6
+set_location_assignment PIN_D9 -to segment_a
+set_location_assignment PIN_E10 -to segment_b
+set_location_assignment PIN_E8 -to segment_c
+set_location_assignment PIN_D11 -to segment_d
+set_location_assignment PIN_C8 -to segment_e
+set_location_assignment PIN_D8 -to segment_f
+set_location_assignment PIN_E9 -to segment_g
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
 set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH tb_bcd_counter -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_NAME tb_bcd_counter -section_id eda_simulation
@@ -92,4 +94,10 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 set_global_assignment -name NUM_PARALLEL_PROCESSORS 12
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/bcd_7_segments.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/mux.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/divider.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/counter_top.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/bcd_counter.sv
+
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
