@@ -1,7 +1,8 @@
 module divider (
     input  logic clk_50mhz,
     output logic enable_clock_001_Hz,
-    output logic enable_clock_100_Hz
+    output logic enable_clock_100_Hz,
+    output logic enable_clock_600_Hz
 );
 
     /*
@@ -61,6 +62,27 @@ module divider (
      * 20 ns.
      */
     assign enable_clock_100_Hz =
+        (contador_100Hz == 19'd499_999);
+
+
+    /*
+     * Pulso de 600 Hz.
+     *
+     * Reutiliza o mesmo contador de 19 bits do enable de 100 Hz.
+     * Sao gerados seis pulsos durante cada periodo de 10 ms
+     * do contador, resultando em uma frequencia media de 600 Hz.
+     *
+     * Como 500.000 nao e divisivel exatamente por seis, os pulsos
+     * ficam separados por 83.333 ou 83.334 ciclos de clk_50mhz.
+     *
+     * Nao sao necessarios flip-flops adicionais.
+     */
+    assign enable_clock_600_Hz =
+        (contador_100Hz == 19'd83_332)  ||
+        (contador_100Hz == 19'd166_665) ||
+        (contador_100Hz == 19'd249_999) ||
+        (contador_100Hz == 19'd333_332) ||
+        (contador_100Hz == 19'd416_665) ||
         (contador_100Hz == 19'd499_999);
 
 
